@@ -1,0 +1,20 @@
+---
+ - hosts: all
+   ignore_errors: yes
+   become: yes
+   tasks:
+
+     - name: Patching server centos
+       yum:
+        name: " * "
+        state: latest
+       when: ansible_distribution == "CentOS" 
+
+     - name: Patching server ubuntu
+       apt:
+        name: " * "
+        state: latest
+       when: ansible_distribution == "Ubuntu"
+
+     - name: unconditionally reboot the machine with all defaults
+       reboot: 
